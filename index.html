@@ -1,238 +1,753 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GSC Research Resources</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSC Research Resources</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --bg2: #ede7d9;
+    --ink: #1a1612;
+    --ink2: #4a3f35;
+    --ink3: #7a6e64;
+    --accent: #8b2a2a;
+    --accent2: #c4965a;
+    --rule: #c8bfb0;
+    --card: #faf7f2;
+    --shadow: rgba(26,22,18,0.08);
+  }
 
-    :root {
-      --bg:       #f5f0e8;
-      --surface:  #fffdf8;
-      --border:   #d6cdb8;
-      --ink:      #1c1a16;
-      --muted:    #7a7060;
-      --accent:   #8b3a2a;
-      --accent2:  #3a5c8b;
-      --hover-bg: #eee8da;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'EB Garamond', Georgia, serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1.5rem 5rem;
-    }
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
 
-    /* ── decorative rule ── */
-    .ornament {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      width: 100%;
-      max-width: 680px;
-    }
-    .ornament::before,
-    .ornament::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    .ornament-center {
-      font-size: 1.4rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-    }
+  /* ── Header ── */
+  header {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(255,255,255,0.03) 28px,
+      rgba(255,255,255,0.03) 29px
+    );
+  }
+  .header-inner { position: relative; z-index: 1; }
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+  }
+  .header-sub {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(245,240,232,0.65);
+    margin-bottom: 1.5rem;
+  }
+  .header-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--accent2);
+    margin: 0 auto;
+  }
 
-    header {
-      text-align: center;
-      max-width: 680px;
-      width: 100%;
-      margin-bottom: 3rem;
-    }
+  /* ── Search ── */
+  .search-wrap {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+  .search-icon {
+    padding: 0 0.85rem;
+    color: var(--ink3);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  #searchInput {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 0.7rem 0;
+    flex: 1;
+  }
+  #searchInput::placeholder { color: var(--ink3); font-style: italic; }
+  #clearSearch {
+    border: none;
+    background: none;
+    padding: 0 0.85rem;
+    cursor: pointer;
+    color: var(--ink3);
+    font-size: 1.2rem;
+    display: none;
+    line-height: 1;
+  }
+  #clearSearch:hover { color: var(--accent); }
+  #searchCount {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink3);
+    padding: 0 1rem;
+    white-space: nowrap;
+    display: none;
+  }
 
-    .eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
+  /* ── Main layout ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
 
-    h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 600;
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 1rem;
-    }
+  /* ── Section ── */
+  .section { margin-bottom: 3rem; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+  .section-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink3);
+    background: var(--bg2);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 0.1em 0.5em;
+  }
 
-    .subtitle {
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--muted);
-      line-height: 1.6;
-    }
+  /* ── File grid ── */
+  .file-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0.75rem;
+  }
 
-    /* ── document list ── */
-    .doc-list {
-      width: 100%;
-      max-width: 680px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+  /* ── File card ── */
+  .file-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.9rem 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+    box-shadow: 0 1px 3px var(--shadow);
+  }
+  .file-card:hover {
+    border-color: var(--accent2);
+    box-shadow: 0 3px 10px var(--shadow);
+    transform: translateY(-1px);
+  }
+  .file-card.hidden { display: none; }
 
-    .doc-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.5rem 1.75rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1.25rem;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-      position: relative;
-      overflow: hidden;
-    }
+  .file-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    border-radius: 2px;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-top: 1px;
+  }
+  .file-icon.docx { background: #2b579a; }
+  .file-icon.pdf  { background: var(--accent); }
 
-    .doc-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--accent);
-      transform: scaleY(0);
-      transform-origin: bottom;
-      transition: transform 0.2s ease;
-    }
+  .file-info { flex: 1; min-width: 0; }
+  .file-name {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .file-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink3);
+    margin-top: 0.35rem;
+  }
 
-    .doc-card:hover {
-      background: var(--hover-bg);
-      border-color: #b8a990;
-      transform: translateX(3px);
-    }
+  /* ── No results ── */
+  #noResults {
+    display: none;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--ink3);
+    font-style: italic;
+    font-size: 1.1rem;
+  }
 
-    .doc-card:hover::before {
-      transform: scaleY(1);
-    }
-
-    .doc-icon {
-      font-size: 1.8rem;
-      line-height: 1;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .doc-body { flex: 1; }
-
-    .doc-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--accent2);
-      margin-bottom: 0.3rem;
-      line-height: 1.3;
-    }
-
-    .doc-desc {
-      font-size: 0.95rem;
-      font-style: italic;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .doc-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--border);
-      margin-top: 0.6rem;
-    }
-
-    .doc-arrow {
-      font-size: 1.1rem;
-      color: var(--border);
-      align-self: center;
-      transition: color 0.18s, transform 0.18s;
-    }
-    .doc-card:hover .doc-arrow {
-      color: var(--accent);
-      transform: translateX(3px);
-    }
-
-    footer {
-      margin-top: 4rem;
-      text-align: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--border);
-    }
-  </style>
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink3);
+    border-top: 1px solid var(--rule);
+    letter-spacing: 0.05em;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
 </head>
 <body>
 
-  <div class="ornament">
-    <span class="ornament-center">✦</span>
-  </div>
-
-  <header>
-    <p class="eyebrow">AA General Service Conference</p>
+<header>
+  <div class="header-inner">
+    <div class="header-eyebrow">Alcoholics Anonymous · General Service Conference</div>
     <h1>GSC Research Resources</h1>
-    <p class="subtitle">Reference documents for General Service Conference research,<br>
-    advisory actions, and AA service structure.</p>
-  </header>
+    <p class="header-sub">A curated archive of conference documents, guidelines, and service materials</p>
+    <div class="header-rule"></div>
+  </div>
+</header>
 
-  <div class="doc-list">
+<div class="search-wrap">
+  <div class="search-box">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchInput" placeholder="Search documents by title or keyword…" autocomplete="off">
+    <span id="searchCount"></span>
+    <button id="clearSearch" title="Clear search">×</button>
+  </div>
+</div>
 
-    <a class="doc-card" href="AA%20Service%20Manual%202024-2026.pdf" target="_blank">
-      <span class="doc-icon">📖</span>
-      <div class="doc-body">
-        <div class="doc-title">AA Service Manual 2024–2026</div>
-        <div class="doc-desc">The current edition of the AA Service Manual, covering AA's service structure, the General Service Conference, and guidelines for all service entities.</div>
-        <div class="doc-meta">PDF · AA World Services</div>
-      </div>
-      <span class="doc-arrow">→</span>
-    </a>
+<main>
+  <div id="noResults">No documents match your search.</div>
 
-    <a class="doc-card" href="Combined%20Considerations%201990-2025.pdf" target="_blank">
-      <span class="doc-icon">📋</span>
-      <div class="doc-body">
-        <div class="doc-title">Combined Considerations 1990–2025</div>
-        <div class="doc-desc">A comprehensive collection of considerations presented to the General Service Conference from 1990 through 2025.</div>
-        <div class="doc-meta">PDF · GSC Archive</div>
-      </div>
-      <span class="doc-arrow">→</span>
-    </a>
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 · Core Reference Documents
+  ═══════════════════════════════════════════ -->
+  <div class="section" data-section>
+    <div class="section-header">
+      <span class="section-title">Core Reference Documents</span>
+      <span class="section-count" data-count>4</span>
+    </div>
+    <div class="file-grid">
 
-    <a class="doc-card" href="M-39_Advisory_Actions_ONLINE.pdf" target="_blank">
-      <span class="doc-icon">📜</span>
-      <div class="doc-body">
-        <div class="doc-title">M-39: Advisory Actions</div>
-        <div class="doc-desc">The complete record of General Service Conference Advisory Actions (M-39), documenting the collected guidance and decisions of the Conference over time.</div>
-        <div class="doc-meta">PDF · AA World Services · M-39</div>
-      </div>
-      <span class="doc-arrow">→</span>
-    </a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/AA%20Service%20Manual%202024-2026.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info">
+          <div class="file-name">AA Service Manual 2024–2026</div>
+          <div class="file-meta">PDF · 10.0 MB</div>
+        </div>
+      </a>
 
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/M-39_Advisory_Actions_ONLINE.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info">
+          <div class="file-name">M-39 Advisory Actions (Online Edition)</div>
+          <div class="file-meta">PDF · 2.6 MB</div>
+        </div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/AA%20Comes%20of%20Age.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info">
+          <div class="file-name">AA Comes of Age</div>
+          <div class="file-meta">PDF · 24.4 MB</div>
+        </div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Dr.%20Bob%20Good%20Old%20Timers.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info">
+          <div class="file-name">Dr. Bob and the Good Oldtimers</div>
+          <div class="file-meta">PDF · 24.3 MB</div>
+        </div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Pass%20it%20On.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info">
+          <div class="file-name">Pass It On</div>
+          <div class="file-meta">PDF · 4.7 MB</div>
+        </div>
+      </a>
+
+    </div>
   </div>
 
-  <footer>
-    GSC Research Resources &nbsp;·&nbsp; fuzzlaw/GSC-Research-Resources
-  </footer>
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 · Conference Considerations
+  ═══════════════════════════════════════════ -->
+  <div class="section" data-section>
+    <div class="section-header">
+      <span class="section-title">Conference Considerations (CC)</span>
+      <span class="section-count" data-count>37</span>
+    </div>
+    <div class="file-grid">
 
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/1.%20Combined%20Considerations%201990-2025.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info">
+          <div class="file-name">Combined Considerations 1990–2025</div>
+          <div class="file-meta">PDF · 17.0 MB</div>
+        </div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Combined%20Considerations%201990-2025.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info">
+          <div class="file-name">Combined Considerations 1990–2025 (Root copy)</div>
+          <div class="file-meta">PDF · 17.0 MB</div>
+        </div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/1990-1994.docx" target="_blank" rel="noopener">
+        <div class="file-icon docx">DOCX</div>
+        <div class="file-info">
+          <div class="file-name">Considerations 1990–1994</div>
+          <div class="file-meta">DOCX · 34 KB</div>
+        </div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/1996.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 1996</div><div class="file-meta">PDF · 748 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/1997.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 1997</div><div class="file-meta">PDF · 485 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/1998.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 1998</div><div class="file-meta">PDF · 487 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/1999.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 1999</div><div class="file-meta">PDF · 546 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2000.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2000</div><div class="file-meta">PDF · 736 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2001.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2001</div><div class="file-meta">PDF · 971 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2002.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2002</div><div class="file-meta">PDF · 714 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2003.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2003</div><div class="file-meta">PDF · 733 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2004.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2004</div><div class="file-meta">PDF · 641 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2005.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2005</div><div class="file-meta">PDF · 623 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2006.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2006</div><div class="file-meta">PDF · 687 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2007.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2007</div><div class="file-meta">PDF · 583 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2008.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2008</div><div class="file-meta">PDF · 796 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2009.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2009</div><div class="file-meta">PDF · 840 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2010.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2010</div><div class="file-meta">PDF · 619 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2011.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2011</div><div class="file-meta">PDF · 433 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2012.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2012</div><div class="file-meta">PDF · 172 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2013.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2013</div><div class="file-meta">PDF · 109 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2014.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2014</div><div class="file-meta">PDF · 162 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2015.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2015</div><div class="file-meta">PDF · 284 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2016.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2016</div><div class="file-meta">PDF · 604 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2017.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2017</div><div class="file-meta">PDF · 170 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2018.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2018</div><div class="file-meta">PDF · 902 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2019.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2019</div><div class="file-meta">PDF · 529 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2020.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2020</div><div class="file-meta">PDF · 315 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2021.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2021</div><div class="file-meta">PDF · 497 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2022.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2022</div><div class="file-meta">PDF · 356 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2023.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2023</div><div class="file-meta">PDF · 293 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2024.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2024</div><div class="file-meta">PDF · 498 KB</div></div>
+      </a>
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/CC/2025.pdf" target="_blank" rel="noopener">
+        <div class="file-icon pdf">PDF</div>
+        <div class="file-info"><div class="file-name">Considerations 2025</div><div class="file-meta">PDF · 1.6 MB</div></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 · GSC Final Reports
+  ═══════════════════════════════════════════ -->
+  <div class="section" data-section>
+    <div class="section-header">
+      <span class="section-title">GSC Final Reports (1951–2025)</span>
+      <span class="section-count" data-count>75</span>
+    </div>
+    <div class="file-grid">
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1951.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1951</div><div class="file-meta">PDF · 1.1 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1952.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1952</div><div class="file-meta">PDF · 1.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1953.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1953</div><div class="file-meta">PDF · 2.1 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1954.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1954</div><div class="file-meta">PDF · 2.2 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1955.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1955</div><div class="file-meta">PDF · 2.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1956.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1956</div><div class="file-meta">PDF · 2.7 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1957.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1957</div><div class="file-meta">PDF · 5.2 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1958.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1958</div><div class="file-meta">PDF · 4.1 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1959.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1959</div><div class="file-meta">PDF · 4.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1960.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1960</div><div class="file-meta">PDF · 4.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1961.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1961</div><div class="file-meta">PDF · 5.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1962.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1962</div><div class="file-meta">PDF · 5.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1963.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1963</div><div class="file-meta">PDF · 5.7 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1964.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1964</div><div class="file-meta">PDF · 5.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1965.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1965</div><div class="file-meta">PDF · 6.4 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1966.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1966</div><div class="file-meta">PDF · 11.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1967.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1967</div><div class="file-meta">PDF · 7.1 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1968.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1968</div><div class="file-meta">PDF · 7.2 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1969.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1969</div><div class="file-meta">PDF · 7.4 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1970.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1970</div><div class="file-meta">PDF · 7.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1971.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1971</div><div class="file-meta">PDF · 7.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1972.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1972</div><div class="file-meta">PDF · 6.2 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1973.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1973</div><div class="file-meta">PDF · 7.2 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1974.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1974</div><div class="file-meta">PDF · 8.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1975.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1975</div><div class="file-meta">PDF · 8.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1976.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1976</div><div class="file-meta">PDF · 8.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1977.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1977</div><div class="file-meta">PDF · 8.7 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1978.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1978</div><div class="file-meta">PDF · 9.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1979.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1979</div><div class="file-meta">PDF · 4.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1980.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1980</div><div class="file-meta">PDF · 9.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1981.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1981</div><div class="file-meta">PDF · 9.8 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1982.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1982</div><div class="file-meta">PDF · 10.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1983.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1983</div><div class="file-meta">PDF · 10.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1984.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1984</div><div class="file-meta">PDF · 10.1 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1985.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1985</div><div class="file-meta">PDF · 4.7 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1986.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1986</div><div class="file-meta">PDF · 9.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1987.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1987</div><div class="file-meta">PDF · 12.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1988.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1988</div><div class="file-meta">PDF · 12.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1989.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1989</div><div class="file-meta">PDF · 12.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1990.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1990</div><div class="file-meta">PDF · 10.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1991.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1991</div><div class="file-meta">PDF · 13.4 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1992.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1992</div><div class="file-meta">PDF · 11.8 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1993.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1993</div><div class="file-meta">PDF · 14.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1994.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1994</div><div class="file-meta">PDF · 12.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1995.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1995</div><div class="file-meta">PDF · 12.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1996.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1996</div><div class="file-meta">PDF · 13.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1997.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1997</div><div class="file-meta">PDF · 13.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1998.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1998</div><div class="file-meta">PDF · 11.7 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/1999.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 1999</div><div class="file-meta">PDF · 13.7 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2000.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2000</div><div class="file-meta">PDF · 14.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2001.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2001</div><div class="file-meta">PDF · 15.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2002.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2002</div><div class="file-meta">PDF · 13.8 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2003%20GSC%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2003</div><div class="file-meta">PDF · 13.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2004%20GSC%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2004</div><div class="file-meta">PDF · 13.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2005%20GSC%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2005</div><div class="file-meta">PDF · 12.7 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2006%20GSC%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2006</div><div class="file-meta">PDF · 13.4 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2007%20GSC%20Final%20Report.PDF" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2007</div><div class="file-meta">PDF · 17.9 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2008%20GSC%20Final%20Report.PDF" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2008</div><div class="file-meta">PDF · 15.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2009%20GSC%20Final%20Report.PDF" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2009</div><div class="file-meta">PDF · 13.4 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2010%20GSC%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2010</div><div class="file-meta">PDF · 11.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2011%20GSC%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2011</div><div class="file-meta">PDF · 11.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2012%20GSC%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2012</div><div class="file-meta">PDF · 2.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2013%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2013</div><div class="file-meta">PDF · 2.6 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2014%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2014</div><div class="file-meta">PDF · 9.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2015%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2015</div><div class="file-meta">PDF · 8.4 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2016%20Final%20Report.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2016</div><div class="file-meta">PDF · 10.3 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2017-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2017</div><div class="file-meta">PDF · 2.1 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2018-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2018</div><div class="file-meta">PDF · 14.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2019-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2019</div><div class="file-meta">PDF · 10.5 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2020-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2020</div><div class="file-meta">PDF · 7.2 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2021-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2021</div><div class="file-meta">PDF · 7.0 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2022-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2022</div><div class="file-meta">PDF · 5.8 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2023-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2023</div><div class="file-meta">PDF · 5.8 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2024-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2024</div><div class="file-meta">PDF · 7.2 MB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Final%20Reports/2025-general-service-conference-final-report-en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSC Final Report 2025</div><div class="file-meta">PDF · 19.7 MB</div></div></a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 · AA Guidelines (MG Series)
+  ═══════════════════════════════════════════ -->
+  <div class="section" data-section>
+    <div class="section-header">
+      <span class="section-title">AA Guidelines (MG Series)</span>
+      <span class="section-count" data-count>17</span>
+    </div>
+    <div class="file-grid">
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/Archives_Digitization_Guidelines_EN_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">Archives Digitization Guidelines</div><div class="file-meta">PDF · 686 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-2_Intergroup_or_Central_Offices_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-2 · Intergroup or Central Offices</div><div class="file-meta">PDF · 62 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-3A_Relationship_AA_%26_Clubs_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-3A · Relationship of AA &amp; Clubs</div><div class="file-meta">PDF · 31 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-4_Conference_Conventions_%26_Roundups_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-4 · Conference Conventions &amp; Roundups</div><div class="file-meta">PDF · 68 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-5_Cooperation_with_Courts_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-5 · Cooperation with Courts</div><div class="file-meta">PDF · 55 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-6_Corrections_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-6 · Corrections</div><div class="file-meta">PDF · 49 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-7_Public_Information_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-7 · Public Information</div><div class="file-meta">PDF · 66 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-8_Relationship_AA_%26_Al_Anon_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-8 · Relationship of AA &amp; Al-Anon</div><div class="file-meta">PDF · 30 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-9_Literature_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-9 · Literature</div><div class="file-meta">PDF · 61 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-10_For_AA_Members_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-10 · For AA Members</div><div class="file-meta">PDF · 30 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-11_CPC_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-11 · CPC (Cooperation with Professional Community)</div><div class="file-meta">PDF · 59 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-12_AA_Answering_Services_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-12 · AA Answering Services</div><div class="file-meta">PDF · 42 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-13_Sharing_the_Message_with_Deaf_Alcoholics_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-13 · Sharing the Message with Deaf Alcoholics</div><div class="file-meta">PDF · 70 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-14_Treatment_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-14 · Treatment</div><div class="file-meta">PDF · 57 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-15_Finance_ONLINE%20(1).pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-15 · Finance</div><div class="file-meta">PDF · 88 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-16_Accessibility_for_all_Alcoholics_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-16 · Accessibility for All Alcoholics</div><div class="file-meta">PDF · 180 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-17_Archives_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-17 · Archives</div><div class="file-meta">PDF · 56 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-18_Internet_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-18 · Internet</div><div class="file-meta">PDF · 63 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-19_Remote_Comunities_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-19 · Remote Communities</div><div class="file-meta">PDF · 40 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-21_Bridging_the_Gap_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-21 · Bridging the Gap</div><div class="file-meta">PDF · 35 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Guidelines/MG-25_Safety_and_AA_Groups_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MG-25 · Safety and AA Groups</div><div class="file-meta">PDF · 156 KB</div></div></a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 · Service Material (SMF / F Series)
+  ═══════════════════════════════════════════ -->
+  <div class="section" data-section>
+    <div class="section-header">
+      <span class="section-title">Service Material (SMF / F Series)</span>
+      <span class="section-count" data-count>37</span>
+    </div>
+    <div class="file-grid">
+
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/F-108_Carrying_The_Message_Behind_These_Walls_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">F-108 · Carrying the Message Behind These Walls</div><div class="file-meta">PDF · 61 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/F-240_Accessibility%20Resources_Flyer_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">F-240 · Accessibility Resources Flyer</div><div class="file-meta">PDF · 109 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/MU-1_Suggestions_for_Leading_Beginners_Meetings_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">MU-1 · Suggestions for Leading Beginners Meetings</div><div class="file-meta">PDF · 48 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-29_Conference_Approved_Literature.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-29 · Conference Approved Literature</div><div class="file-meta">PDF · 22 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-32_Public_Information.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-32 · Public Information</div><div class="file-meta">PDF · 62 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-53_Estimates_of_AA_Groups_and_Members.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-53 · Estimates of AA Groups and Members</div><div class="file-meta">PDF · 23 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-56_Suggested_Topics_for_Discussion_Meetings.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-56 · Suggested Topics for Discussion Meetings</div><div class="file-meta">PDF · 25 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-91_Concepts_Checklist.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-91 · Concepts Checklist</div><div class="file-meta">PDF · 58 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-92_AA_Preamble.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-92 · AA Preamble</div><div class="file-meta">PDF · 16 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-94_AA_Fact_Sheet.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-94 · AA Fact Sheet</div><div class="file-meta">PDF · 28 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-101_Frequently_Ask_Questions_About_AA_Websites.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-101 · FAQ About AA Websites</div><div class="file-meta">PDF · 42 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-104_Is_Your_Group_Linked_to_AA_as_a_Whole.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-104 · Is Your Group Linked to AA as a Whole?</div><div class="file-meta">PDF · 41 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-110_Sponsorship_a_Vital_Stepping_Stone_to_Service_and_Sobriety.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-110 · Sponsorship: A Vital Stepping Stone</div><div class="file-meta">PDF · 22 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-111_How_to_Conduct_a_Sharing_Session.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-111 · How to Conduct a Sharing Session</div><div class="file-meta">PDF · 41 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-112_Suggested_Workshop_Format.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-112 · Suggested Workshop Format</div><div class="file-meta">PDF · 42 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-113_Use_of_the_Circle_Triangle_Symbol.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-113 · Use of the Circle &amp; Triangle Symbol</div><div class="file-meta">PDF · 18 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-114_The_Twelve_Concepts_for_World_Service_SHORT_FORM.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-114 · Twelve Concepts for World Service (Short Form)</div><div class="file-meta">PDF · 21 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-116_The_General_Service_Conference_Structure.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-116 · The General Service Conference Structure</div><div class="file-meta">PDF · 201 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-118_Regional_Map_of_US_and_Canada.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-118 · Regional Map of US and Canada</div><div class="file-meta">PDF · 321 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-121_The_Twelve_Steps_of_Alcoholics_Anonymous.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-121 · The Twelve Steps of Alcoholics Anonymous</div><div class="file-meta">PDF · 22 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-122_The_Twelve_Traditions_for_World_Service_SHORT_FORM.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-122 · Twelve Traditions for World Service (Short Form)</div><div class="file-meta">PDF · 23 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-123_Loners_International_Correspondence_Service.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-123 · Loners International Correspondence Service</div><div class="file-meta">PDF · 32 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-126_Presentation_What_AA_Is_and_is_Not_TF_Adm_Staff.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-126 · What AA Is and Is Not (TF/Admin Staff)</div><div class="file-meta">PDF · 26 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-127_The_AA_Preamble_Background_Information.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-127 · The AA Preamble: Background Information</div><div class="file-meta">PDF · 25 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-128_Presentation_What_AA_Is_and_Is_Not_to_TF_Clients.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-128 · What AA Is and Is Not (TF Clients)</div><div class="file-meta">PDF · 28 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-129_Origin_of_the_Serenity_Prayer_A_Historical_Paper.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-129 · Origin of the Serenity Prayer: A Historical Paper</div><div class="file-meta">PDF · 92 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-131_Traditions_Checklist.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-131 · Traditions Checklist</div><div class="file-meta">PDF · 84 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-132_Estimated_Worldwide_AA_Individual_and_Group_Membership.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-132 · Estimated Worldwide AA Membership</div><div class="file-meta">PDF · 32 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-141_Origin_of_the_Serenity_Prayer_A_Brief_Summary.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-141 · Origin of the Serenity Prayer: A Brief Summary</div><div class="file-meta">PDF · 21 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-142_Sharing_Experience_on_Approaching_New_People_Referred_to_TF.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-142 · Sharing Experience on Approaching New People (TF)</div><div class="file-meta">PDF · 32 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-146_Area_Map_of_US_and_Canada.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-146 · Area Map of US and Canada</div><div class="file-meta">PDF · 425 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-165_AA_Around_the_Globe.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-165 · AA Around the Globe</div><div class="file-meta">PDF · 55 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-169_Researching_AA_Group_History.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-169 · Researching AA Group History</div><div class="file-meta">PDF · 27 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-174_Sharing_from_DCMs_to_a_New_DCM.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-174 · Sharing from DCMs to a New DCM</div><div class="file-meta">PDF · 54 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-176_Services_Provided_by_GSO.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-176 · Services Provided by GSO</div><div class="file-meta">PDF · 147 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-177_AA_Resource_Court_Professionals_ONLINE.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-177 · AA Resource for Court Professionals</div><div class="file-meta">PDF · 39 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-179_Structure_of_the_Conference.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-179 · Structure of the Conference</div><div class="file-meta">PDF · 94 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-187_The_Twelve_Traditions_of_AA_LONG_FORM.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-187 · The Twelve Traditions of AA (Long Form)</div><div class="file-meta">PDF · 33 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-195_The_Twelve_Concepts_of_AA_LONG_FORM.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-195 · The Twelve Concepts of AA (Long Form)</div><div class="file-meta">PDF · 42 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-196_Responding_to%20Disasters.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-196 · Responding to Disasters</div><div class="file-meta">PDF · 21 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-197_Anonymity_Online_and_Digital_Media.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-197 · Anonymity Online and Digital Media</div><div class="file-meta">PDF · 67 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-200_For_the_Chairperson_Staffing_an_Exhibit.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-200 · For the Chairperson Staffing an Exhibit</div><div class="file-meta">PDF · 129 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-201_For_Volunteers_Staffing_an_AA_Exhibit.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-201 · For Volunteers Staffing an AA Exhibit</div><div class="file-meta">PDF · 70 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-208_Accessibilities_Checklist.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-208 · Accessibilities Checklist</div><div class="file-meta">PDF · 142 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-219_The_International_Literature_Fund.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-219 · The International Literature Fund</div><div class="file-meta">PDF · 34 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/SMF-223-FAQonVirtualBasket_en.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-223 · FAQ on Virtual Basket</div><div class="file-meta">PDF · 106 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/f-239-corrections-presentation-tablet-literature-list-0925.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">F-239 · Corrections Presentation — Tablet Literature List</div><div class="file-meta">PDF · 208 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/gso-archives-info-sheet-ic-themes-attendance-en-1025.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">GSO Archives Info Sheet: IC Themes &amp; Attendance</div><div class="file-meta">PDF · 156 KB</div></div></a>
+      <a class="file-card" href="https://github.com/fuzzlaw/GSC-Research-Resources/blob/main/Service%20Material/smf-240-sponsorship-within-AAs-three-legacies.pdf" target="_blank" rel="noopener"><div class="file-icon pdf">PDF</div><div class="file-info"><div class="file-name">SMF-240 · Sponsorship Within AA's Three Legacies</div><div class="file-meta">PDF · 169 KB</div></div></a>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="https://github.com/fuzzlaw/GSC-Research-Resources" target="_blank" rel="noopener">fuzzlaw/GSC-Research-Resources</a>
+  &nbsp;·&nbsp; All documents hosted on GitHub &nbsp;·&nbsp; For research and service use
+</footer>
+
+<script>
+  const input = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearSearch');
+  const countEl = document.getElementById('searchCount');
+  const noResults = document.getElementById('noResults');
+  const sections = document.querySelectorAll('[data-section]');
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    clearBtn.style.display = q ? 'block' : 'none';
+    countEl.style.display = q ? 'block' : 'none';
+
+    let total = 0;
+    sections.forEach(section => {
+      const cards = section.querySelectorAll('.file-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const text = card.querySelector('.file-name').textContent.toLowerCase();
+        const match = !q || text.includes(q);
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      total += visible;
+      section.style.display = visible === 0 ? 'none' : '';
+    });
+
+    countEl.textContent = q ? `${total} result${total !== 1 ? 's' : ''}` : '';
+    noResults.style.display = (q && total === 0) ? 'block' : 'none';
+  });
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    input.focus();
+  });
+</script>
 </body>
 </html>
